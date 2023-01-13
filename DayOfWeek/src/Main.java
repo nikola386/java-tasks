@@ -1,3 +1,9 @@
+/*
+Create a simple java program with main method that converts the numbers from 1-7 to a day of the week.
+        •	Create a static method/function that takes int as input arguments and returns the corresponding day of the week as String.
+        •	Use switch statement for implementation.
+        •	Call the created method in the main method of the class with different arguments to verify that it is working.
+*/
 public class Main {
     public static void main(String[] args) {
         for(int i = 1; i <= 7; i++){

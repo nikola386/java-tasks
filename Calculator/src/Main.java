@@ -1,6 +1,15 @@
 import java.io.IOException;
 import java.util.Scanner;
 
+/*
+Create a simple command line calculator supporting add, subtract, and multiply operations:
+        •	All operations must be separated in different methods.
+        •	The operations should support double numbers.
+        •	The program reads from the console and prints the results in the console.
+        •	The user is asked in the console to enter two numbers, and operation (1-add, 2-subtract, 3-multiply, 4-exit).
+        •	The program should work in a loop, so that the user can do multiple calculations. Program finishes when the exit (4) operation is entered.
+*/
+
 public class Main {
     public static void main(String[] args) throws IOException {
         System.out.println("Basic calculator");

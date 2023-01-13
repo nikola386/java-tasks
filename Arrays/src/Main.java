@@ -1,3 +1,10 @@
+/*
+Create a simple java program with main method that declares an array with 10 integer numbers. Find and print on the console the biggest odd number from the array.
+•	Extract the logic that finds the biggest odd number in a static method. Call the method in the main method.
+•	Test the program with array containing positive numbers, negative numbers, and zeros.
+•	Handle the case when the array does not contain any odds numbers.
+
+*/
 public class Main {
     public static void main(String[] args) {
         int withPositiveNumbers[] = { 1,5,7,8,9,0,2,4,3,6 };
