@@ -78,9 +78,11 @@ public class Main {
     }
 
     private static void usingFileChannel(String source, String dest) {
-        try (FileChannel from = new FileInputStream(source).getChannel();
-             FileChannel to = new FileOutputStream(dest).getChannel()) {
+        try (FileInputStream in = new FileInputStream(source);
+             FileOutputStream out = new FileOutputStream(dest)) {
 
+            FileChannel from = in.getChannel();
+            FileChannel to = out.getChannel();
             to.transferFrom(from, 0, from.size());
         } catch (IOException e) {
             e.printStackTrace();
