@@ -35,17 +35,23 @@ class Person implements Comparable<Person>{
         return String.format("firstName: %s, lastName: %s, address: %s, age: %d", firstName, lastName, address, age);
     }
 
-
     @Override
     public int compareTo(Person o) {
         return this.firstName.compareToIgnoreCase(o.firstName);
     }
-}
-
-class AgeCompare implements Comparator<Person> {
 
     @Override
-    public int compare(Person o1, Person o2) {
-        return o1.getAge() - o2.getAge();
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (!(obj instanceof Person))
+            return false;
+        if (obj == this)
+            return true;
+        return this.hashCode() == obj.hashCode();
+    }
+
+    @Override
+    public int hashCode() {
+        return age * firstName.hashCode() * lastName.hashCode();
     }
 }
