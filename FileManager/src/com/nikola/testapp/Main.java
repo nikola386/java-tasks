@@ -29,8 +29,8 @@ public class Main {
         System.out.println("Test invalid operation");
         try {
             factory.getOperation("invalid");
-        } catch (IllegalArgumentException iae) {
-            iae.printStackTrace();
+        } catch (OperationException oe) {
+            oe.printStackTrace();
         }
 
         System.out.println("Test null file");
