@@ -26,31 +26,24 @@ public class Main {
 
         FileManagerFactory factory = new FileManagerFactory();
 
-        System.out.println("Test invalid operation");
-        try {
-            factory.getOperation("invalid");
-        } catch (OperationException oe) {
-            oe.printStackTrace();
-        }
-
         System.out.println("Test null file");
         try {
-            op = factory.getOperation("addDir");
+            op = factory.getOperation(FileManagerFactory.Operation.ADD_DIRECTORY);
             op.execute(null);
         } catch (OperationException oe) {
             oe.printStackTrace();
         }
 
         System.out.println("Creating directory");
-        op = factory.getOperation("addDir");
+        op = factory.getOperation(FileManagerFactory.Operation.ADD_DIRECTORY);
         op.execute(testDir);
 
         System.out.println("Creating file");
-        op = factory.getOperation("addFile");
+        op = factory.getOperation(FileManagerFactory.Operation.ADD_FILE);
         op.execute(testFile);
 
         System.out.println("Deleting directory and file");
-        op = factory.getOperation("delete");
+        op = factory.getOperation(FileManagerFactory.Operation.DELETE);
         op.execute(testFile);
         op.execute(testDir);
     }
