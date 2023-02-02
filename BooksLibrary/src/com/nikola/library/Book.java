@@ -1,21 +1,25 @@
 package com.nikola.library;
 
-import javax.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.*;
+
 import java.math.BigDecimal;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @XmlRootElement(name = "book")
 @XmlType(propOrder = { "id", "isbn", "title", "author", "publishedYear", "price" })
 public class Book {
-    private static final AtomicInteger count = new AtomicInteger(0);
-    private final int id;
+    private int id;
     private String isbn;
     private String title;
     private String author;
     private int publishedYear;
     private BigDecimal price;
 
+    @XmlTransient
     private User borrower;
+
+    private Book() {  // makes JAXB happy, will never be invoked
+    }
+
 
     public Book(String isbn, String title, String author, int publishedYear, BigDecimal price) {
         if (isbn == null ||
@@ -24,7 +28,6 @@ public class Book {
             throw new IllegalArgumentException("Missing parameters");
         }
 
-        this.id = count.incrementAndGet();
         this.isbn = isbn;
         this.title = title.trim();
         this.author = author.trim();
@@ -32,10 +35,16 @@ public class Book {
         this.price = price;
     }
 
+    @XmlElement(name = "id")
     public int getId() {
         return id;
     }
 
+    public int setId(int id) {
+        return this.id = id;
+    }
+
+    @XmlElement(name = "isbn")
     public String getIsbn() {
         return isbn;
     }
@@ -44,6 +53,7 @@ public class Book {
         this.isbn = isbn;
     }
 
+    @XmlElement(name = "title")
     public String getTitle() {
         return title;
     }
@@ -52,6 +62,7 @@ public class Book {
         this.title = title;
     }
 
+    @XmlElement(name = "price")
     public BigDecimal getPrice() {
         return price;
     }
@@ -60,6 +71,7 @@ public class Book {
         this.price = price;
     }
 
+    @XmlElement(name = "publishedYear")
     public int getPublishedYear() {
         return publishedYear;
     }
@@ -68,6 +80,7 @@ public class Book {
         this.publishedYear = publishedYear;
     }
 
+    @XmlElement(name = "author")
     public String getAuthor() {
         return author;
     }

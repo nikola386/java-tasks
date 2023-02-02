@@ -3,7 +3,7 @@ package com.nikola.library;
 import java.util.ArrayList;
 
 public class User {
-    private String name;
+    private final String name;
     private final ArrayList<Book> books;
 
     public User(String name) {

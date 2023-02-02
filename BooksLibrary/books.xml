@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<library>
+    <book>
+        <id>2</id>
+        <isbn>123-456-789-9</isbn>
+        <title>1984</title>
+        <author>George Orwell</author>
+        <publishedYear>1949</publishedYear>
+        <price>12.99</price>
+    </book>
+    <book>
+        <id>3</id>
+        <isbn>789-123-456-2</isbn>
+        <title>Pride and Prejudice</title>
+        <author>Jane Austen</author>
+        <publishedYear>1813</publishedYear>
+        <price>14.99</price>
+    </book>
+    <book>
+        <id>4</id>
+        <isbn>111-222-333-4</isbn>
+        <title>The Great Gatsby</title>
+        <author>F. Scott Fitzgerald</author>
+        <publishedYear>1925</publishedYear>
+        <price>11.99</price>
+    </book>
+    <book>
+        <id>5</id>
+        <isbn>222-333-444-5</isbn>
+        <title>The Catcher in the Rye</title>
+        <author>J.D. Salinger</author>
+        <publishedYear>1951</publishedYear>
+        <price>13.99</price>
+    </book>
+    <book>
+        <id>6</id>
+        <isbn>456-789-123-1</isbn>
+        <title>1984</title>
+        <author>George Orwell</author>
+        <publishedYear>1949</publishedYear>
+        <price>12.99</price>
+    </book>
+</library>
