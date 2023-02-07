@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Student>
+    <id>1</id>
+    <name>Student 1</name>
+    <address>Some address 123, Sofia, BG</address>
+</Student>
