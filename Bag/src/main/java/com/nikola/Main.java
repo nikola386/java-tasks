@@ -1,3 +1,7 @@
+package com.nikola;
+
+import com.nikola.bag.Bag;
+
 public class Main {
     public static void main(String[] args) {
         Bag<Object> bag = new Bag<>(100);

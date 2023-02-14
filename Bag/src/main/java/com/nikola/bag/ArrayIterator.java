@@ -1,3 +1,5 @@
+package com.nikola.bag;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
