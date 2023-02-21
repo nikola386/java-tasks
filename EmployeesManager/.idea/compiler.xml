@@ -9,8 +9,5 @@
         <module name="EmployeesManager" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="EmployeesManager" target="19" />
-    </bytecodeTargetLevel>
   </component>
 </project>

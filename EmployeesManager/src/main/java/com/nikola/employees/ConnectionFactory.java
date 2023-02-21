@@ -1,4 +1,4 @@
-package com.nikola.sqltask;
+package com.nikola.employees;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

@@ -1,7 +1,9 @@
-package com.nikola.sqltask;
+package com.nikola;
 
 import com.github.javafaker.Faker;
 import com.github.javafaker.Name;
+import com.nikola.employees.Employee;
+import com.nikola.employees.EmployeeDao;
 
 import java.sql.Date;
 import java.util.List;

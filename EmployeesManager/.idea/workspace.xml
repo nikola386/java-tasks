@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="507f5923-afa9-4f27-be4b-affd50c1916d" name="Changes" comment="Add tests to Employees manager">
+      <change afterPath="$PROJECT_DIR$/../Bag/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/css/coverage.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/css/idea.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/img/arrowDown.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/img/arrowUp.gif" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_BLOCK.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_BLOCK_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_CLASS.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_CLASS_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_LINE.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_LINE_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_METHOD.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_METHOD_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_NAME_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/js/highlight.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/js/highlightjs-line-numbers.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_BLOCK.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_BLOCK_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_CLASS.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_CLASS_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_LINE.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_LINE_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_METHOD.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_METHOD_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_NAME_DESC.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/sources/source-1.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/sources/source-2.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/sources/source-3.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Bag/readme.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/EmployeesManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/ConnectionFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/Dao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/EmployeeDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/EmployeeDaoTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_javafaker_javafaker_1_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_mifmif_generex_1_0_2.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_sqlserver_mssql_jdbc_8_2_2_jre8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__dk_brics_automaton_automaton_1_11_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_5.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_android_1_23.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/EmployeesManager.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/ConnectionFactory.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/Dao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/Employee.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/EmployeeDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/EmployeesManager.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="workspaceImportEnabled" value="true" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2Lpm863dLH8vQxjLGd5ez7LlB1H" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="EmployeeDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="EmployeesManager" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="EmployeeDaoTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.EmployeeDaoTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="507f5923-afa9-4f27-be4b-affd50c1916d" name="Changes" comment="" />
+      <created>1676576238184</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1676576238184</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add tests to Employees manager" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add tests to Employees manager" />
+  </component>
+</project>
