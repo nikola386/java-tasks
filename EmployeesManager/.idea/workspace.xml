@@ -5,62 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="507f5923-afa9-4f27-be4b-affd50c1916d" name="Changes" comment="Add tests to Employees manager">
-      <change afterPath="$PROJECT_DIR$/../Bag/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/css/coverage.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/css/idea.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/img/arrowDown.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/img/arrowUp.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_BLOCK.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_BLOCK_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_CLASS.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_CLASS_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_LINE.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_LINE_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_METHOD.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_METHOD_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/index_SORT_BY_NAME_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/js/highlight.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/js/highlightjs-line-numbers.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_BLOCK.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_BLOCK_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_CLASS.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_CLASS_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_LINE.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_LINE_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_METHOD.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_METHOD_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/index_SORT_BY_NAME_DESC.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/sources/source-1.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/sources/source-2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/htmlReport/ns-1/sources/source-3.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Bag/readme.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/EmployeesManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/ConnectionFactory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/Dao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/Employee.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/nikola/employees/EmployeeDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/EmployeeDaoTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_javafaker_javafaker_1_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_mifmif_generex_1_0_2.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_microsoft_sqlserver_mssql_jdbc_8_2_2_jre8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__dk_brics_automaton_automaton_1_11_8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_5.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_yaml_snakeyaml_android_1_23.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/EmployeesManager.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/ConnectionFactory.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/Dao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/Employee.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/EmployeeDao.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/nikola/sqltask/EmployeesManager.java" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/mvnw" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/mvnw.cmd" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/LoansApiApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/controllers/UserController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/enums/LoanStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/enums/PaymentStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/exceptions/NotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/models/Loan.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/models/Payment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/repositories/LoanRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/repositories/PaymentRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/services/LoanService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/services/LoanServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/services/PaymentService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/services/PaymentServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/services/UserService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/java/com/nikola/LoansApi/services/UserServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../LoansApi/src/test/java/com/nikola/LoansApi/LoansApiApplicationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,16 +61,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="EmployeeDaoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="EmployeesManager" />
@@ -124,10 +96,21 @@
       <option name="presentableId" value="Default" />
       <updated>1676576238184</updated>
     </task>
+    <task id="LOCAL-00001" summary="Add tests to Employees manager">
+      <created>1676994487751</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1676994487751</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Add tests to Employees manager" />
     <option name="LAST_COMMIT_MESSAGE" value="Add tests to Employees manager" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/EmployeesManager$EmployeeDaoTest.ic" NAME="EmployeeDaoTest Coverage Results" MODIFIED="1676994459885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
