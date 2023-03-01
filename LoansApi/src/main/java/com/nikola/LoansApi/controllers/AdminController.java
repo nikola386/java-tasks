@@ -1,11 +1,9 @@
 package com.nikola.LoansApi.controllers;
 
-import com.nikola.LoansApi.exceptions.NotFoundException;
 import com.nikola.LoansApi.models.Loan;
 import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.services.LoanService;
 import com.nikola.LoansApi.services.PaymentService;
-import com.nikola.LoansApi.services.AccountService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -15,7 +13,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,7 +21,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/admin")
-@PreAuthorize("hasAuthority('ADMIN')")
+@PreAuthorize("hasRole('ADMIN')")
 @Tag(name = "Admin")
 @SecurityRequirement(name = "basicAuth")
 public class AdminController {

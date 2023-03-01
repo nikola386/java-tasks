@@ -21,6 +21,13 @@ public class Account {
         this.role = role;
     }
 
+    public Account(String username, String password, UserRole role, Loan loan) {
+        this.username = username;
+        this.password = password;
+        this.role = role;
+        this.loan = loan;
+    }
+
     public Account(){}
 
     public Long getId() {

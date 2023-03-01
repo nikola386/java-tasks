@@ -3,6 +3,15 @@ package com.nikola.LoansApi.models;
 import java.math.BigDecimal;
 
 public class LoanRequest {
+    public LoanRequest() {
+    }
+
+    public LoanRequest(BigDecimal amount, int term, BigDecimal interestRate) {
+        this.amount = amount;
+        this.term = term;
+        this.interestRate = interestRate;
+    }
+
     private BigDecimal amount;
     private int term;
     private BigDecimal interestRate;

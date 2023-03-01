@@ -1,6 +1,6 @@
 package com.nikola.LoansApi.config;
 
-import com.nikola.LoansApi.services.AuthService;
+import com.nikola.LoansApi.services.AppUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +18,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true, jsr250Enabled = true)
 public class SecurityConfig {
     @Autowired
-    AuthService authService;
+    AppUserDetails appUserDetails;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -28,7 +28,7 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(authService)
+                .userDetailsService(appUserDetails)
                 .passwordEncoder(passwordEncoder())
                 .and()
                 .build();

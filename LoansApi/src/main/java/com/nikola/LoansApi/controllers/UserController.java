@@ -1,11 +1,9 @@
 package com.nikola.LoansApi.controllers;
 
-import com.nikola.LoansApi.exceptions.NotFoundException;
-import com.nikola.LoansApi.models.CustomUser;
+import com.nikola.LoansApi.models.CustomUserDetails;
 import com.nikola.LoansApi.models.Loan;
 import com.nikola.LoansApi.models.LoanRequest;
 import com.nikola.LoansApi.models.Payment;
-import com.nikola.LoansApi.services.AccountService;
 import com.nikola.LoansApi.services.LoanService;
 import com.nikola.LoansApi.services.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,6 +15,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -26,7 +25,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user")
-@PreAuthorize("hasAuthority('USER')")
+@PreAuthorize("hasRole('USER')")
 @Tag(name = "User")
 @SecurityRequirement(name = "basicAuth")
 public class UserController {
@@ -48,10 +47,11 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content)})
     @PostMapping(value = "/loan")
-    public Loan getLoan(Authentication authentication, @RequestBody LoanRequest request) {
-        CustomUser principal = (CustomUser) authentication.getPrincipal();
+    public ResponseEntity<Loan> getLoan(Authentication authentication, @RequestBody LoanRequest request) {
+        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
 
-        return loanService.createLoan(principal.getUserId(), request.getAmount(), request.getTerm(), request.getInterestRate());
+        Loan loan = loanService.createLoan(principal.getId(), request);
+        return new ResponseEntity<>(loan, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get loan schedule", description = "Get loan schedule for given loanId.")
@@ -63,9 +63,9 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
     @GetMapping(value = "/loan/schedule")
     public List<Payment> getLoanSchedule(Authentication authentication) {
-        CustomUser principal = (CustomUser) authentication.getPrincipal();
+        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
 
-        Loan loan = loanService.getLoanByAccountId(principal.getUserId());
+        Loan loan = loanService.getLoanByAccountId(principal.getId());
         return loan.getPayments();
     }
 
@@ -78,9 +78,9 @@ public class UserController {
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
     @PatchMapping(value = "/loan/payment")
     public void makePayment(Authentication authentication) {
-        CustomUser principal = (CustomUser) authentication.getPrincipal();
+        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
 
-        Loan loan = loanService.getLoanByAccountId(principal.getUserId());
+        Loan loan = loanService.getLoanByAccountId(principal.getId());
         paymentService.makePayment(loan);
     }
 }

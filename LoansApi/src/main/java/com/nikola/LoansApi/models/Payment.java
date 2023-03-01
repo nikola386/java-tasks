@@ -23,7 +23,7 @@ public class Payment {
     private Loan loan;
 
     public Payment() {
-        // default constructor
+        this.status = PaymentStatus.UPCOMING;
     }
 
     public Payment(LocalDate dueDate, BigDecimal amount, Loan loan) {
