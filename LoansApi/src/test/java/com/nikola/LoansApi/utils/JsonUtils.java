@@ -2,7 +2,7 @@ package com.nikola.LoansApi.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Json {
+public class JsonUtils {
     public static String asJsonString(final Object obj) {
         try {
             return new ObjectMapper().writeValueAsString(obj);
