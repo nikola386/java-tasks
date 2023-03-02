@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PaymentServiceImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nikola.LoansApi.services</a>
+</div>
+
+<h1>Coverage Summary for Class: PaymentServiceImpl (com.nikola.LoansApi.services)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PaymentServiceImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    50%
+  </span>
+  <span class="absValue">
+    (12/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nikola.LoansApi.services;
+&nbsp;
+&nbsp;import com.nikola.LoansApi.enums.PaymentStatus;
+&nbsp;import com.nikola.LoansApi.exceptions.NotFoundException;
+&nbsp;import com.nikola.LoansApi.models.Loan;
+&nbsp;import com.nikola.LoansApi.models.Payment;
+&nbsp;import com.nikola.LoansApi.repositories.PaymentRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.math.RoundingMode;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;@Service
+&nbsp;public class PaymentServiceImpl implements PaymentService {
+&nbsp;    private final PaymentRepository paymentRepository;
+&nbsp;
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public PaymentServiceImpl(PaymentRepository paymentRepository) {</b>
+<b class="fc">&nbsp;        this.paymentRepository = paymentRepository;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Payment&gt; createPayments(Loan loan) {
+<b class="nc">&nbsp;        List&lt;Payment&gt; payments = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        BigDecimal monthlyInterestRate = loan.getInterestRate().divide(BigDecimal.valueOf(12.0), 2, RoundingMode.HALF_UP);</b>
+<b class="nc">&nbsp;        BigDecimal monthlyPayment = loan.getAmount()</b>
+<b class="nc">&nbsp;                .multiply(monthlyInterestRate)</b>
+<b class="nc">&nbsp;                .divide(BigDecimal.valueOf(1 - Math.pow(monthlyInterestRate.add(BigDecimal.valueOf(1)).doubleValue(), -loan.getTerm())), 2, RoundingMode.HALF_UP);</b>
+&nbsp;
+<b class="nc">&nbsp;        LocalDate dueDate = LocalDate.now().plusDays(1);</b>
+<b class="nc">&nbsp;        for (int i = 1; i &lt;= loan.getTerm(); i++) {</b>
+<b class="nc">&nbsp;            Payment payment = new Payment(dueDate, monthlyPayment, loan);</b>
+<b class="nc">&nbsp;            payments.add(payment);</b>
+<b class="nc">&nbsp;            dueDate = dueDate.plusMonths(1);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        paymentRepository.saveAll(payments);</b>
+&nbsp;
+<b class="nc">&nbsp;        return payments;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void makePayment(Loan loan) {
+<b class="fc">&nbsp;        Payment payment = getFirstUnpaidPayment(loan);</b>
+<b class="fc">&nbsp;        payment.setStatus(PaymentStatus.PAID);</b>
+<b class="fc">&nbsp;        paymentRepository.save(payment);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void forgivePayment(Loan loan) {
+<b class="fc">&nbsp;        Payment payment = getFirstUnpaidPayment(loan);</b>
+<b class="fc">&nbsp;        payment.setStatus(PaymentStatus.FORGIVEN);</b>
+<b class="fc">&nbsp;        paymentRepository.save(payment);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Payment getFirstUnpaidPayment(Loan loan) {
+<b class="fc">&nbsp;        return loan.getPayments().stream()</b>
+<b class="fc">&nbsp;                .filter(p -&gt; p.getStatus() == PaymentStatus.UPCOMING)</b>
+<b class="fc">&nbsp;                .findFirst()</b>
+<b class="fc">&nbsp;                .orElseThrow(() -&gt; new RuntimeException(&quot;Loan already paid&quot;));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-02 00:34</div>
+</div>
+</body>
+</html>

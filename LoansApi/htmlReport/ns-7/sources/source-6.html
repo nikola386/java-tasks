@@ -1,0 +1,88 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > LoanService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.nikola.LoansApi.services</a>
+</div>
+
+<h1>Coverage Summary for Class: LoanService (com.nikola.LoansApi.services)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">LoanService$MockitoMock$ggq4QXwp</td>
+  </tr>
+  <tr>
+    <td class="name">LoanService$MockitoMock$ggq4QXwp$auxiliary$pGK2AreT</td>
+  </tr>
+  <tr>
+    <td class="name">LoanService$MockitoMock$ggq4QXwp$auxiliary$S8kFmBXm</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nikola.LoansApi.services;
+&nbsp;
+&nbsp;import com.nikola.LoansApi.models.Loan;
+&nbsp;import com.nikola.LoansApi.models.LoanRequest;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;
+&nbsp;public interface LoanService {
+&nbsp;    Loan createLoan(Long userId, LoanRequest request);
+&nbsp;    Loan getLoan(Long loanId);
+&nbsp;    Loan getLoanByAccountId(Long userId);
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-03-02 00:34</div>
+</div>
+</body>
+</html>
