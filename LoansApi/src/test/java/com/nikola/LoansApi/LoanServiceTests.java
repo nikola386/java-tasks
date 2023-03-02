@@ -51,7 +51,8 @@ public class LoanServiceTests {
         when(paymentService.createPayments(any(Loan.class))).thenReturn(expected.getPayments());
         when(loanRepository.save(any(Loan.class))).thenReturn(expected);
 
-        Loan actual = loanService.createLoan(account.getId(), new LoanRequest(BigDecimal.valueOf(1), 1, BigDecimal.valueOf(1)));
+        Loan actual = loanService.createLoan(account.getId(),
+                new LoanRequest(BigDecimal.valueOf(1), 1, BigDecimal.valueOf(1)));
 
         assertThat(actual.getAmount()).isEqualTo(BigDecimal.valueOf(1));
         assertThat(actual.getTerm()).isEqualTo(1);

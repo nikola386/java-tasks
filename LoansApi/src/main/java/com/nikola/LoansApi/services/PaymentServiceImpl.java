@@ -25,10 +25,13 @@ public class PaymentServiceImpl implements PaymentService {
 
     public List<Payment> createPayments(Loan loan) {
         List<Payment> payments = new ArrayList<>();
-        BigDecimal monthlyInterestRate = loan.getInterestRate().divide(BigDecimal.valueOf(12.0), 2, RoundingMode.HALF_UP);
+        BigDecimal monthlyInterestRate = loan.getInterestRate()
+                .divide(BigDecimal.valueOf(12.0), 2, RoundingMode.HALF_UP);
         BigDecimal monthlyPayment = loan.getAmount()
                 .multiply(monthlyInterestRate)
-                .divide(BigDecimal.valueOf(1 - Math.pow(monthlyInterestRate.add(BigDecimal.valueOf(1)).doubleValue(), -loan.getTerm())), 2, RoundingMode.HALF_UP);
+                .divide(BigDecimal.valueOf(1 -
+                        Math.pow(monthlyInterestRate.add(BigDecimal.valueOf(1)).doubleValue(), -loan.getTerm())),
+                        2, RoundingMode.HALF_UP);
 
         LocalDate dueDate = LocalDate.now().plusDays(1);
         for (int i = 1; i <= loan.getTerm(); i++) {

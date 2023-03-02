@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html id="htmlId">
 <head>
-  <title>Coverage Report > Account</title>
+  <title>Coverage Report > AccountServiceImpl</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -18,15 +18,18 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">com.nikola.LoansApi.models</a>
+    <a href="../index.html">com.nikola.LoansApi.services</a>
 </div>
 
-<h1>Coverage Summary for Class: Account (com.nikola.LoansApi.models)</h1>
+<h1>Coverage Summary for Class: AccountServiceImpl (com.nikola.LoansApi.services)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -37,46 +40,33 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Account</td>
+  <td class="name">AccountServiceImpl</td>
 <td class="coverageStat">
   <span class="percent">
-    69.2%
+    100%
   </span>
   <span class="absValue">
-    (9/13)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    80%
+    100%
   </span>
   <span class="absValue">
-    (16/20)
-  </span>
-</td>
-</tr>
-  <tr>
-    <td class="name">Account$HibernateProxy$vw3oyEo2</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    69.2%
-  </span>
-  <span class="absValue">
-    (9/13)
+    (4/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    80%
+    100%
   </span>
   <span class="absValue">
-    (16/20)
+    (10/10)
   </span>
 </td>
 </tr>
+
 </table>
 
 <br/>
@@ -84,81 +74,45 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package com.nikola.LoansApi.models;
+<code class="sourceCode" id="sourceCode">&nbsp;package com.nikola.LoansApi.services;
 &nbsp;
 &nbsp;import com.nikola.LoansApi.enums.UserRole;
-&nbsp;import jakarta.persistence.*;
+&nbsp;import com.nikola.LoansApi.exceptions.NotFoundException;
+&nbsp;import com.nikola.LoansApi.models.Account;
+&nbsp;import com.nikola.LoansApi.repositories.AccountRepository;
+&nbsp;import jakarta.annotation.PostConstruct;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.security.crypto.password.PasswordEncoder;
+&nbsp;import org.springframework.stereotype.Service;
 &nbsp;
-&nbsp;@Entity
-&nbsp;public class Account {
-&nbsp;    @Id
-&nbsp;    @GeneratedValue(strategy = GenerationType.AUTO)
-&nbsp;    private Long id;
-&nbsp;    private String username;
-&nbsp;    private String password;
-&nbsp;    private UserRole role;
+&nbsp;@Service
+&nbsp;public class AccountServiceImpl implements AccountService {
+&nbsp;    private final AccountRepository accountRepository;
+&nbsp;    private final PasswordEncoder passwordEncoder;
 &nbsp;
-&nbsp;    @OneToOne(mappedBy = &quot;account&quot;)
-&nbsp;    private Loan loan;
-&nbsp;
-<b class="fc">&nbsp;    public Account(String username, String password, UserRole role) {</b>
-<b class="fc">&nbsp;        this.username = username;</b>
-<b class="fc">&nbsp;        this.password = password;</b>
-<b class="fc">&nbsp;        this.role = role;</b>
+&nbsp;    @Autowired
+<b class="fc">&nbsp;    public AccountServiceImpl(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {</b>
+<b class="fc">&nbsp;        this.accountRepository = accountRepository;</b>
+<b class="fc">&nbsp;        this.passwordEncoder = passwordEncoder;</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public Account(String username, String password, UserRole role, Loan loan) {</b>
-<b class="fc">&nbsp;        this.username = username;</b>
-<b class="fc">&nbsp;        this.password = password;</b>
-<b class="fc">&nbsp;        this.role = role;</b>
-<b class="fc">&nbsp;        this.loan = loan;</b>
+&nbsp;    @PostConstruct
+&nbsp;    public void initialize() {
+<b class="fc">&nbsp;        if(accountRepository.findOneByUsername(&quot;admin&quot;) == null){</b>
+<b class="fc">&nbsp;            save(new Account(&quot;admin&quot;, &quot;admin_pass&quot;, UserRole.ADMIN));</b>
+&nbsp;        }
+<b class="fc">&nbsp;        if(accountRepository.findOneByUsername(&quot;user&quot;) == null){</b>
+<b class="fc">&nbsp;            save(new Account(&quot;user&quot;, &quot;user_pass&quot;, UserRole.USER));</b>
+&nbsp;        }
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public Account(){}</b>
-&nbsp;
-&nbsp;    public Long getId() {
-<b class="fc">&nbsp;        return id;</b>
+&nbsp;    public Account getById(Long id){
+<b class="fc">&nbsp;        return accountRepository.findById(id).orElseThrow(() -&gt; new NotFoundException(&quot;Account &quot; + id + &quot; not found&quot;));</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public void setId(Long id) {
-<b class="fc">&nbsp;        this.id = id;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public String getUsername() {
-<b class="fc">&nbsp;        return username;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setUsername(String username) {
-<b class="nc">&nbsp;        this.username = username;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public String getPassword() {
-<b class="fc">&nbsp;        return password;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setPassword(String password) {
-<b class="fc">&nbsp;        this.password = password;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public UserRole getRole() {
-<b class="fc">&nbsp;        return role;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setRole(UserRole role) {
-<b class="nc">&nbsp;        this.role = role;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Override
-&nbsp;    public String toString() {
-<b class="nc">&nbsp;        return &quot;Account {&quot; +</b>
-&nbsp;                &quot;id=&quot; + id +
-&nbsp;                &quot;, username=&#39;&quot; + username + &#39;\&#39;&#39; +
-&nbsp;                &quot;, role=&#39;&quot; + role + &#39;\&#39;&#39; +
-&nbsp;                &#39;}&#39;;
-&nbsp;    }
-&nbsp;
-&nbsp;    public Loan getLoan() {
-<b class="nc">&nbsp;        return loan;</b>
+&nbsp;    private void save(Account user) {
+<b class="fc">&nbsp;        user.setPassword(passwordEncoder.encode(user.getPassword()));</b>
+<b class="fc">&nbsp;        accountRepository.save(user);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -184,7 +138,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2023-03-02 00:34</div>
+    <div style="float:right;">generated on 2023-03-03 00:19</div>
 </div>
 </body>
 </html>
