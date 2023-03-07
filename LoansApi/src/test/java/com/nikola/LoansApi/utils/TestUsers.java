@@ -5,6 +5,8 @@ import com.nikola.LoansApi.models.Account;
 import com.nikola.LoansApi.models.CustomUserDetails;
 import com.nikola.LoansApi.models.Loan;
 
+import java.util.List;
+
 public class TestUsers {
     public static CustomUserDetails testUser() {
         Account acc = new Account("test_user", "pass", UserRole.USER);
@@ -13,7 +15,7 @@ public class TestUsers {
     }
 
     public static CustomUserDetails testUserWithLoan() {
-        Account acc = new Account("test_user", "pass", UserRole.USER, new Loan());
+        Account acc = new Account("test_user", "pass", UserRole.USER, List.of(new Loan()));
         acc.setId(2L);
         return new CustomUserDetails(acc);
     }

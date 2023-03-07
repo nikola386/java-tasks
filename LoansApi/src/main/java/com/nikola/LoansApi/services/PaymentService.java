@@ -1,11 +1,14 @@
 package com.nikola.LoansApi.services;
 
 import com.nikola.LoansApi.enums.PaymentStatus;
+import com.nikola.LoansApi.exceptions.NotFoundException;
 import com.nikola.LoansApi.models.Loan;
 import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.repositories.PaymentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -43,22 +46,25 @@ public class PaymentService {
         return payments;
     }
 
-    public void makePayment(Loan loan) {
-        Payment payment = getFirstUnpaidPayment(loan);
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public Payment makePayment(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new NotFoundException("Payment " + paymentId + " not found"));
         payment.setStatus(PaymentStatus.PAID);
+
         paymentRepository.save(payment);
+
+        return payment;
     }
 
-    public void forgivePayment(Loan loan) {
-        Payment payment = getFirstUnpaidPayment(loan);
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    public Payment forgivePayment(Long paymentId) {
+        Payment payment = paymentRepository.findById(paymentId)
+                .orElseThrow(() -> new NotFoundException("Payment " + paymentId + " not found"));
+
         payment.setStatus(PaymentStatus.FORGIVEN);
         paymentRepository.save(payment);
-    }
 
-    private Payment getFirstUnpaidPayment(Loan loan) {
-        return loan.getPayments().stream()
-                .filter(p -> p.getStatus() == PaymentStatus.UPCOMING)
-                .findFirst()
-                .orElseThrow(() -> new RuntimeException("Loan already paid"));
+        return payment;
     }
 }

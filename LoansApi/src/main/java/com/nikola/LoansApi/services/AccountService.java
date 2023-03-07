@@ -22,10 +22,10 @@ public class AccountService {
 
     @PostConstruct
     public void initialize() {
-        if(accountRepository.findByUsername("admin") == null){
+        if(accountRepository.findByUsername("admin").isEmpty()){
             save(new Account("admin", "admin_pass", UserRole.ADMIN));
         }
-        if(accountRepository.findByUsername("user") == null){
+        if(accountRepository.findByUsername("user").isEmpty()){
             save(new Account("user", "user_pass", UserRole.USER));
         }
     }

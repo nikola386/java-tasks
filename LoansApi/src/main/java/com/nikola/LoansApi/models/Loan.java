@@ -1,5 +1,6 @@
 package com.nikola.LoansApi.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nikola.LoansApi.enums.LoanStatus;
 import jakarta.persistence.*;
 
@@ -20,8 +21,9 @@ public class Loan {
     @OneToMany(mappedBy = "loan", cascade = CascadeType.ALL)
     private List<Payment> payments;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="account_id", referencedColumnName = "id")
+    @JsonIgnore
     private Account account;
 
     public Loan() {

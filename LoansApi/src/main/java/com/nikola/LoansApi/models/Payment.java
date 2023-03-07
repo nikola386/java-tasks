@@ -27,7 +27,7 @@ public class Payment {
     }
 
     public Payment(LocalDate dueDate, BigDecimal amount, Loan loan) {
-        this.id = Long.valueOf(0);
+        this.id = 0L;
         this.dueDate = dueDate;
         this.amount = amount;
         this.status = PaymentStatus.UPCOMING;

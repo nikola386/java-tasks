@@ -3,12 +3,13 @@ package com.nikola.LoansApi.services;
 import com.nikola.LoansApi.exceptions.NotFoundException;
 import com.nikola.LoansApi.models.Account;
 import com.nikola.LoansApi.models.Loan;
-import com.nikola.LoansApi.models.LoanRequest;
+import com.nikola.LoansApi.models.dto.LoanRequest;
 import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Service
@@ -24,13 +25,15 @@ public class LoanService {
         this.accountService = accountService;
     }
 
+    public List<Loan> getLoans(Long userId) {
+        Account acc = accountService.getById(userId);
+        return acc.getLoans();
+    }
+
     public Loan createLoan(Long userId, LoanRequest request) {
         Account acc = accountService.getById(userId);
-        if(acc.getLoan() != null) {
-            throw new RuntimeException("User already has a loan");
-        }
 
-        Loan loan = new Loan(request.getAmount(), request.getTerm(), request.getInterestRate());
+        Loan loan = new Loan(request.getAmount(), request.getTerm(), BigDecimal.valueOf(5.8));
         loan.setAccount(acc);
 
         loan = loanRepository.save(loan);

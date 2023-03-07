@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,12 +37,27 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf().disable()
+                .headers().frameOptions().sameOrigin()
+                .and()
                 .httpBasic()
                 .and()
-                .authorizeRequests()
+                .authorizeHttpRequests()
                 .anyRequest().authenticated();
 
         return http.build();
+    }
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring()
+                .requestMatchers("/")
+                .requestMatchers("/api-docs/**")
+                .requestMatchers("/h2-console/**")
+                .requestMatchers("/swagger*/**")
+                .requestMatchers("/webjars/**")
+                .requestMatchers("/swagger-ui/**")
+                .requestMatchers("/api/auth/**");
     }
 }

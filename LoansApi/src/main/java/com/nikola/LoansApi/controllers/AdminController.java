@@ -12,23 +12,26 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admins")
 @PreAuthorize("hasRole('ADMIN')")
 @Tag(name = "Admin")
 @SecurityRequirement(name = "basicAuth")
-public class AdminsController {
+public class AdminController {
     private final LoanService loanService;
     private final PaymentService paymentService;
 
     @Autowired
-    public AdminsController(LoanService loanService, PaymentService paymentService) {
+    public AdminController(LoanService loanService, PaymentService paymentService) {
         this.loanService = loanService;
         this.paymentService = paymentService;
     }
@@ -41,32 +44,39 @@ public class AdminsController {
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
     @GetMapping(value = "/loans/{loanId}/schedule")
-    public List<Payment> getLoanSchedule(@PathVariable("loanId") Long loanId) {
+    public ResponseEntity<List<Payment>> getLoanSchedule(@NotNull @PathVariable("loanId") Long loanId) {
         Loan loan = loanService.getLoan(loanId);
-        return loan.getPayments();
+        return new ResponseEntity<>(loan.getPayments(), HttpStatus.OK);
     }
 
     @Operation(summary = "Make payment for any loan", description = "Make payment for any loan by given loanId.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Loan payment made"),
+            @ApiResponse(responseCode = "200", description = "Loan payment made", content = {
+                    @Content(schema = @Schema(implementation = Payment.class), mediaType = "application/json")
+            }),
             @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
-    @PatchMapping(value = "/loans/{loanId}/payment")
-    public void makePayment(@PathVariable("loanId") Long loanId) {
-        Loan loan = loanService.getLoan(loanId);
-        paymentService.makePayment(loan);
+    @PatchMapping(value = "/loans/{loanId}/payments/{paymentId}")
+    public ResponseEntity<Payment> makePayment(@NotNull @PathVariable("loanId") Long loanId,
+                                      @NotNull @PathVariable("paymentId") Long paymentId) {
+        Payment payment = paymentService.makePayment(paymentId);
+
+        return new ResponseEntity<>(payment, HttpStatus.OK);
     }
 
     @Operation(summary = "Forgive payment for any loan", description = "Forgive payment for any loan by given loanId.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Loan payment forgiven"),
+            @ApiResponse(responseCode = "200", description = "Loan payment forgiven", content = {
+                    @Content(schema = @Schema(implementation = Payment.class), mediaType = "application/json")
+            }),
             @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
-    @DeleteMapping(value = "/loans/{loanId}/payment")
-    public void cancelPayment(@PathVariable("loanId") Long loanId) {
-        Loan loan = loanService.getLoan(loanId);
-        paymentService.forgivePayment(loan);
+    @DeleteMapping(value = "/loans/{loanId}/payments/{paymentId}")
+    public ResponseEntity<Payment> forgivePayment(@NotNull @PathVariable("loanId") Long loanId,
+                                         @NotNull @PathVariable("paymentId") Long paymentId) {
+        Payment payment = paymentService.forgivePayment(paymentId);
+        return new ResponseEntity<>(payment, HttpStatus.OK);
     }
 }

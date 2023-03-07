@@ -3,6 +3,8 @@ package com.nikola.LoansApi.models;
 import com.nikola.LoansApi.enums.UserRole;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 public class Account {
     @Id
@@ -12,8 +14,8 @@ public class Account {
     private String password;
     private UserRole role;
 
-    @OneToOne(mappedBy = "account")
-    private Loan loan;
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+    private List<Loan> loans;
 
     public Account(String username, String password, UserRole role) {
         this.username = username;
@@ -21,11 +23,11 @@ public class Account {
         this.role = role;
     }
 
-    public Account(String username, String password, UserRole role, Loan loan) {
+    public Account(String username, String password, UserRole role, List<Loan> loans) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.loan = loan;
+        this.loans = loans;
     }
 
     public Account(){}
@@ -71,7 +73,7 @@ public class Account {
                 '}';
     }
 
-    public Loan getLoan() {
-        return loan;
+    public List<Loan> getLoans() {
+        return loans;
     }
 }

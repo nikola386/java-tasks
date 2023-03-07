@@ -34,7 +34,7 @@ class AdminApiTests {
 
     @Test
     public void whenNoAuth_thenReturnUnauthorized() throws Exception {
-        this.mockMvc.perform(get("/api/admin/1/schedule")
+        this.mockMvc.perform(get("/api/admins/loans/1/schedule")
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -43,7 +43,7 @@ class AdminApiTests {
 
     @Test
     public void whenNoPermissions_thenReturnForbidden() throws Exception {
-        this.mockMvc.perform(get("/api/admin/loan/1/schedule")
+        this.mockMvc.perform(get("/api/admins/loans/1/schedule")
                         .with(csrf())
                         .with(user(TestUsers.testUser()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -55,7 +55,7 @@ class AdminApiTests {
     public void whenAdminGetSchedule_andNotFound_thenReturnNotFound() throws Exception {
         when(this.loanService.getLoan(1L)).thenThrow(NotFoundException.class);
 
-        this.mockMvc.perform(get("/api/admin/loan/1/schedule")
+        this.mockMvc.perform(get("/api/admins/loans/1/schedule")
                         .with(csrf())
                         .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -67,7 +67,7 @@ class AdminApiTests {
     public void whenAdminGetSchedule_thenReturnOk() throws Exception {
         when(this.loanService.getLoan(1L)).thenReturn(mockedLoan());
 
-        this.mockMvc.perform(get("/api/admin/loan/1/schedule")
+        this.mockMvc.perform(get("/api/admins/loans/1/schedule")
                         .with(csrf())
                         .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -80,7 +80,7 @@ class AdminApiTests {
     public void whenAdminDeletePayment_andNotFound_thenReturnNotFound() throws Exception {
         when(this.loanService.getLoan(1L)).thenThrow(NotFoundException.class);
 
-        this.mockMvc.perform(delete("/api/admin/loan/1/payment")
+        this.mockMvc.perform(delete("/api/admins/loans/1/payment")
                         .with(csrf())
                         .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -94,7 +94,7 @@ class AdminApiTests {
         loan.getPayments().get(0).setStatus(PaymentStatus.FORGIVEN);
         when(this.loanService.getLoan(1L)).thenReturn(loan);
 
-        this.mockMvc.perform(delete("/api/admin/loan/1/payment")
+        this.mockMvc.perform(delete("/api/admins/loans/1/payment")
                         .with(csrf())
                         .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -106,7 +106,7 @@ class AdminApiTests {
     public void whenAdminPatchPayment_andNotFound_thenReturnNotFound() throws Exception {
         when(this.loanService.getLoan(1L)).thenThrow(NotFoundException.class);
 
-        this.mockMvc.perform(patch("/api/admin/loan/1/payment")
+        this.mockMvc.perform(patch("/api/admins/loans/1/payment")
                         .with(csrf())
                         .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -120,7 +120,7 @@ class AdminApiTests {
         loan.getPayments().get(0).setStatus(PaymentStatus.PAID);
         when(this.loanService.getLoan(1L)).thenReturn(loan);
 
-        this.mockMvc.perform(delete("/api/admin/loan/1/payment")
+        this.mockMvc.perform(delete("/api/admins/loans/1/payment")
                         .with(csrf())
                         .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)

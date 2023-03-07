@@ -4,7 +4,7 @@ import com.nikola.LoansApi.enums.UserRole;
 import com.nikola.LoansApi.exceptions.NotFoundException;
 import com.nikola.LoansApi.models.Account;
 import com.nikola.LoansApi.models.Loan;
-import com.nikola.LoansApi.models.LoanRequest;
+import com.nikola.LoansApi.models.dto.LoanRequest;
 import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.repositories.LoanRepository;
 import com.nikola.LoansApi.services.AccountService;
@@ -52,7 +52,7 @@ public class LoanServiceTests {
         when(loanRepository.save(any(Loan.class))).thenReturn(expected);
 
         Loan actual = loanService.createLoan(account.getId(),
-                new LoanRequest(BigDecimal.valueOf(1), 1, BigDecimal.valueOf(1)));
+                new LoanRequest(BigDecimal.valueOf(1), 1));
 
         assertThat(actual.getAmount()).isEqualTo(BigDecimal.valueOf(1));
         assertThat(actual.getTerm()).isEqualTo(1);
@@ -71,11 +71,11 @@ public class LoanServiceTests {
 
     @Test
     void whenCreateLoan_andAccountHasLoan_thenThrowRuntimeException() {
-        Account account = new Account("user", "pass", UserRole.USER, new Loan());
+        Account account = new Account("user", "pass", UserRole.USER, List.of(new Loan()));
         when(accountService.getById(1L)).thenReturn(account);
 
         Assertions.assertThrows(RuntimeException.class, () -> loanService.createLoan(1L,
-                new LoanRequest(BigDecimal.valueOf(1), 1, BigDecimal.valueOf(1))));
+                new LoanRequest(BigDecimal.valueOf(1), 1)));
 
         verify(accountService, times(1)).getById(1L);
         verifyNoMoreInteractions(accountService);
