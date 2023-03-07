@@ -1,5 +1,6 @@
 package com.nikola.LoansApi.services;
 
+import com.nikola.LoansApi.exceptions.NotFoundException;
 import com.nikola.LoansApi.models.Account;
 import com.nikola.LoansApi.models.CustomUserDetails;
 import com.nikola.LoansApi.repositories.AccountRepository;
@@ -20,7 +21,8 @@ public class AppUserDetails implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        Account acc = accountRepository.findOneByUsername(userName);
+        Account acc = accountRepository.findByUsername(userName).orElseThrow(() ->
+                new UsernameNotFoundException(String.format("User %s not found", userName)));
         return new CustomUserDetails(acc);
     }
 }

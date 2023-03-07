@@ -1,8 +1,6 @@
 package com.nikola.LoansApi.controllers;
 
-import com.nikola.LoansApi.models.CustomUserDetails;
 import com.nikola.LoansApi.models.Loan;
-import com.nikola.LoansApi.models.LoanRequest;
 import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.services.LoanService;
 import com.nikola.LoansApi.services.PaymentService;
@@ -15,43 +13,24 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
-@PreAuthorize("hasRole('USER')")
-@Tag(name = "User")
+@RequestMapping("/api/admin")
+@PreAuthorize("hasRole('ADMIN')")
+@Tag(name = "Admin")
 @SecurityRequirement(name = "basicAuth")
-public class UserController {
+public class AdminsController {
     private final LoanService loanService;
     private final PaymentService paymentService;
 
     @Autowired
-    public UserController(LoanService loanService, PaymentService paymentService) {
+    public AdminsController(LoanService loanService, PaymentService paymentService) {
         this.loanService = loanService;
         this.paymentService = paymentService;
-    }
-
-    @Operation(summary = "Request new loan", description = "Request new loan.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Loan requested", content = {
-                    @Content(schema = @Schema(implementation = Loan.class), mediaType = "application/json")
-            }),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
-            @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
-            @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content)})
-    @PostMapping(value = "/loan")
-    public ResponseEntity<Loan> getLoan(Authentication authentication, @RequestBody LoanRequest request) {
-        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-
-        Loan loan = loanService.createLoan(principal.getId(), request);
-        return new ResponseEntity<>(loan, HttpStatus.CREATED);
     }
 
     @Operation(summary = "Get loan schedule", description = "Get loan schedule for given loanId.")
@@ -61,26 +40,33 @@ public class UserController {
             @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
-    @GetMapping(value = "/loan/schedule")
-    public List<Payment> getLoanSchedule(Authentication authentication) {
-        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-
-        Loan loan = loanService.getLoanByAccountId(principal.getId());
+    @GetMapping(value = "/loans/{loanId}/schedule")
+    public List<Payment> getLoanSchedule(@PathVariable("loanId") Long loanId) {
+        Loan loan = loanService.getLoan(loanId);
         return loan.getPayments();
     }
 
     @Operation(summary = "Make payment for any loan", description = "Make payment for any loan by given loanId.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Loan payment made"),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = @Content),
             @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
-    @PatchMapping(value = "/loan/payment")
-    public void makePayment(Authentication authentication) {
-        CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
-
-        Loan loan = loanService.getLoanByAccountId(principal.getId());
+    @PatchMapping(value = "/loans/{loanId}/payment")
+    public void makePayment(@PathVariable("loanId") Long loanId) {
+        Loan loan = loanService.getLoan(loanId);
         paymentService.makePayment(loan);
+    }
+
+    @Operation(summary = "Forgive payment for any loan", description = "Forgive payment for any loan by given loanId.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Loan payment forgiven"),
+            @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
+            @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
+            @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
+    @DeleteMapping(value = "/loans/{loanId}/payment")
+    public void cancelPayment(@PathVariable("loanId") Long loanId) {
+        Loan loan = loanService.getLoan(loanId);
+        paymentService.forgivePayment(loan);
     }
 }

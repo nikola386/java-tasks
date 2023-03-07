@@ -8,7 +8,7 @@ import com.nikola.LoansApi.models.LoanRequest;
 import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.repositories.LoanRepository;
 import com.nikola.LoansApi.services.AccountService;
-import com.nikola.LoansApi.services.LoanServiceImpl;
+import com.nikola.LoansApi.services.LoanService;
 import com.nikola.LoansApi.services.PaymentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -36,7 +36,7 @@ public class LoanServiceTests {
     private AccountService accountService;
 
     @InjectMocks
-    private LoanServiceImpl loanService;
+    private LoanService loanService;
 
     @Test
     void whenCreateLoan_thenReturnNewLoan() {

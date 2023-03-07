@@ -1,18 +1,9 @@
 package com.nikola.LoansApi;
 
-import com.nikola.LoansApi.enums.UserRole;
-import com.nikola.LoansApi.exceptions.NotFoundException;
-import com.nikola.LoansApi.models.Account;
 import com.nikola.LoansApi.models.Loan;
-import com.nikola.LoansApi.models.LoanRequest;
 import com.nikola.LoansApi.models.Payment;
-import com.nikola.LoansApi.repositories.LoanRepository;
 import com.nikola.LoansApi.repositories.PaymentRepository;
-import com.nikola.LoansApi.services.AccountService;
-import com.nikola.LoansApi.services.LoanServiceImpl;
 import com.nikola.LoansApi.services.PaymentService;
-import com.nikola.LoansApi.services.PaymentServiceImpl;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,9 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
-import static com.nikola.LoansApi.utils.Mocks.mockedLoan;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
@@ -35,7 +24,7 @@ public class PaymentServiceTests {
     private PaymentRepository paymentRepository;
 
     @InjectMocks
-    private PaymentServiceImpl paymentService;
+    private PaymentService paymentService;
 
     @Test
     public void whenCreatePayments_thenReturnListOfPayments() {
