@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/admin")
+@RequestMapping("/api/admins")
 @PreAuthorize("hasRole('ADMIN')")
 @Tag(name = "Admin")
 @SecurityRequirement(name = "basicAuth")
@@ -41,7 +42,7 @@ public class AdminsController {
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
     @GetMapping(value = "/loans/{loanId}/schedule")
-    public List<Payment> getLoanSchedule(@PathVariable("loanId") Long loanId) {
+    public List<Payment> getLoanSchedule(@NotNull @PathVariable("loanId") Long loanId) {
         Loan loan = loanService.getLoan(loanId);
         return loan.getPayments();
     }
@@ -53,7 +54,7 @@ public class AdminsController {
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
     @PatchMapping(value = "/loans/{loanId}/payment")
-    public void makePayment(@PathVariable("loanId") Long loanId) {
+    public void makePayment(@NotNull @PathVariable("loanId") Long loanId) {
         Loan loan = loanService.getLoan(loanId);
         paymentService.makePayment(loan);
     }
@@ -65,7 +66,7 @@ public class AdminsController {
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content),
             @ApiResponse(responseCode = "404", description = "Loan not found", content = @Content)})
     @DeleteMapping(value = "/loans/{loanId}/payment")
-    public void cancelPayment(@PathVariable("loanId") Long loanId) {
+    public void cancelPayment(@NotNull @PathVariable("loanId") Long loanId) {
         Loan loan = loanService.getLoan(loanId);
         paymentService.forgivePayment(loan);
     }

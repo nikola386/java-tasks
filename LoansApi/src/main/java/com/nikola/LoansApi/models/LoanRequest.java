@@ -1,8 +1,26 @@
 package com.nikola.LoansApi.models;
 
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 
 public class LoanRequest {
+    @NotNull
+    private BigDecimal amount;
+
+    @NotNull
+    @Min(1)
+    @Max(120)
+    private int term;
+
+    @NotNull
+    @Min(1)
+    @Max(100)
+    private BigDecimal interestRate;
+
     public LoanRequest() {
     }
 
@@ -11,10 +29,6 @@ public class LoanRequest {
         this.term = term;
         this.interestRate = interestRate;
     }
-
-    private BigDecimal amount;
-    private int term;
-    private BigDecimal interestRate;
 
     public BigDecimal getAmount() {
         return amount;

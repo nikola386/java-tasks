@@ -14,6 +14,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/users")
 @PreAuthorize("hasRole('USER')")
 @Tag(name = "User")
 @SecurityRequirement(name = "basicAuth")
@@ -47,7 +48,7 @@ public class UsersController {
             @ApiResponse(responseCode = "401", description = "User not authorised", content = @Content),
             @ApiResponse(responseCode = "403", description = "User has no permissions", content = @Content)})
     @PostMapping(value = "/loans")
-    public ResponseEntity<Loan> getLoan(Authentication authentication, @RequestBody LoanRequest request) {
+    public ResponseEntity<Loan> getLoan(Authentication authentication, @Valid @RequestBody LoanRequest request) {
         CustomUserDetails principal = (CustomUserDetails) authentication.getPrincipal();
 
         Loan loan = loanService.createLoan(principal.getId(), request);
