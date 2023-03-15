@@ -64,6 +64,14 @@ public class Account {
         this.role = role;
     }
 
+    public List<Loan> getLoans() {
+        return loans;
+    }
+
+    public void setLoans(List<Loan> loans) {
+        this.loans = loans;
+    }
+
     @Override
     public String toString() {
         return "Account {" +
@@ -71,9 +79,5 @@ public class Account {
                 ", username='" + username + '\'' +
                 ", role='" + role + '\'' +
                 '}';
-    }
-
-    public List<Loan> getLoans() {
-        return loans;
     }
 }

@@ -25,7 +25,7 @@ public class LoanService {
         this.accountService = accountService;
     }
 
-    public List<Loan> getLoans(Long userId) {
+    public List<Loan> getLoansByUserId(Long userId) {
         Account acc = accountService.getById(userId);
         return acc.getLoans();
     }
@@ -47,7 +47,10 @@ public class LoanService {
         return loanRepository.findById(loanId).orElseThrow(() -> new NotFoundException("Loan " + loanId + " not found"));
     }
 
-    public Loan getLoanByAccountId(Long accountId) {
-        return loanRepository.findByAccountId(accountId).orElseThrow(() -> new NotFoundException("Loan for account " + accountId + " not found"));
+    public Loan getLoanByAccountId(Long accountId, Long loanId) {
+        Account acc = accountService.getById(accountId);
+
+        return acc.getLoans().stream().filter((l) -> l.getId().equals(loanId)).findFirst().orElseThrow(() ->
+                new NotFoundException("Loan " + loanId + " for account " + accountId + " not found"));
     }
 }

@@ -28,7 +28,7 @@ public class ControllerAdvisor {
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<Object> handleBadRequestException(
-            NotFoundException ex) {
+            BadRequestException ex) {
         return new ResponseEntity<>(ex.getMessage(), BAD_REQUEST);
     }
 

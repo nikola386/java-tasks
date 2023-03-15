@@ -3,13 +3,16 @@ package com.nikola.LoansApi.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.nikola.LoansApi.enums.LoanStatus;
 import jakarta.persistence.*;
+import org.springframework.hateoas.RepresentationModel;
+import org.springframework.hateoas.server.core.Relation;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
 @Table(name = "loans")
-public class Loan {
+@Relation(collectionRelation = "loans", itemRelation = "loan")
+public class Loan extends RepresentationModel<Loan> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

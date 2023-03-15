@@ -1,6 +1,7 @@
 package com.nikola.LoansApi.services;
 
 import com.nikola.LoansApi.enums.PaymentStatus;
+import com.nikola.LoansApi.exceptions.BadRequestException;
 import com.nikola.LoansApi.exceptions.NotFoundException;
 import com.nikola.LoansApi.models.Loan;
 import com.nikola.LoansApi.models.Payment;
@@ -47,9 +48,11 @@ public class PaymentService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Payment makePayment(Long paymentId) {
+    public Payment makePayment(Long loanId, Long paymentId) {
         Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new NotFoundException("Payment " + paymentId + " not found"));
+        validatePaymentBelongsToLoan(loanId, payment);
+
         payment.setStatus(PaymentStatus.PAID);
 
         paymentRepository.save(payment);
@@ -58,13 +61,20 @@ public class PaymentService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public Payment forgivePayment(Long paymentId) {
+    public Payment forgivePayment(Long loanId, Long paymentId) {
         Payment payment = paymentRepository.findById(paymentId)
                 .orElseThrow(() -> new NotFoundException("Payment " + paymentId + " not found"));
+        validatePaymentBelongsToLoan(loanId, payment);
 
         payment.setStatus(PaymentStatus.FORGIVEN);
         paymentRepository.save(payment);
 
         return payment;
+    }
+
+    private void validatePaymentBelongsToLoan(Long loanId, Payment p) {
+        if(!loanId.equals(p.getLoan().getId())) {
+            throw new BadRequestException(String.format("Payment %s does not belong to loan %s", p.getId(), loanId));
+        }
     }
 }

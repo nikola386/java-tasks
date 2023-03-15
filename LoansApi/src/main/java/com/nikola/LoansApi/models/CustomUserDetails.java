@@ -19,6 +19,10 @@ public class CustomUserDetails implements UserDetails {
         return account.getId();
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
