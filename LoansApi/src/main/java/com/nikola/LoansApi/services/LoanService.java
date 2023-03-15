@@ -8,6 +8,7 @@ import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.repositories.LoanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -48,9 +49,7 @@ public class LoanService {
     }
 
     public Loan getLoanByAccountId(Long accountId, Long loanId) {
-        Account acc = accountService.getById(accountId);
-
-        return acc.getLoans().stream().filter((l) -> l.getId().equals(loanId)).findFirst().orElseThrow(() ->
+        return loanRepository.findByAccountId(accountId).filter((l) -> l.getId().equals(loanId)).orElseThrow(() ->
                 new NotFoundException("Loan " + loanId + " for account " + accountId + " not found"));
     }
 }

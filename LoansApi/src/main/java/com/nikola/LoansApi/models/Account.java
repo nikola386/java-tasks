@@ -65,6 +65,10 @@ public class Account {
     }
 
     public List<Loan> getLoans() {
+        if(loans == null) {
+            return List.of();
+        }
+
         return loans;
     }
 

@@ -44,22 +44,28 @@ public class PaymentServiceTests {
 
     @Test
     public void whenMakePayment_thenStatusShouldBePaid() {
+        Loan loan = new Loan(BigDecimal.valueOf(100), 2, BigDecimal.valueOf(1));
+        loan = loanRepository.save(loan);
+
         LocalDate expectedDate = LocalDate.now().plusDays(1);
-        Payment expected = new Payment(expectedDate, BigDecimal.valueOf(1), null);
+        Payment expected = new Payment(expectedDate, BigDecimal.valueOf(1), loan);
         expected = paymentRepository.save(expected);
 
-        Payment actual = paymentService.makePayment(expected.getId());
+        Payment actual = paymentService.makePayment(loan.getId(), expected.getId());
 
         assertThat(actual.getStatus()).isEqualTo(PaymentStatus.PAID);
     }
 
     @Test
     public void whenForgivePayment_thenStatusShouldBeForgiven() {
+        Loan loan = new Loan(BigDecimal.valueOf(100), 2, BigDecimal.valueOf(1));
+        loan = loanRepository.save(loan);
+
         LocalDate expectedDate = LocalDate.now().plusDays(1);
-        Payment expected = new Payment(expectedDate, BigDecimal.valueOf(1), null);
+        Payment expected = new Payment(expectedDate, BigDecimal.valueOf(1), loan);
         expected = paymentRepository.save(expected);
 
-        Payment actual = paymentService.forgivePayment(expected.getId());
+        Payment actual = paymentService.forgivePayment(loan.getId(), expected.getId());
 
         assertThat(actual.getStatus()).isEqualTo(PaymentStatus.FORGIVEN);
     }
