@@ -2,9 +2,12 @@ package com.nikola.LoansApi;
 
 import com.nikola.LoansApi.enums.PaymentStatus;
 import com.nikola.LoansApi.exceptions.NotFoundException;
+import com.nikola.LoansApi.models.CustomUserDetails;
 import com.nikola.LoansApi.models.Loan;
+import com.nikola.LoansApi.models.Payment;
 import com.nikola.LoansApi.models.dto.LoanRequest;
 import com.nikola.LoansApi.services.LoanService;
+import com.nikola.LoansApi.services.PaymentService;
 import com.nikola.LoansApi.utils.TestUsers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +41,12 @@ class UserApiTests {
 
     @MockBean
     private LoanService loanService;
+    @MockBean
+    private PaymentService paymentService;
 
     @Test
     public void whenNoAuth_thenReturnUnauthorized() throws Exception {
-        this.mockMvc.perform(post("/api/users/loans")
-                        .with(csrf())
+        this.mockMvc.perform(post("/api/users/mine/loans")
                         .content(asJsonString(new LoanRequest()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
@@ -53,8 +57,7 @@ class UserApiTests {
     public void whenNoPermissions_thenReturnForbidden() throws Exception {
         LoanRequest loanRequest = new LoanRequest(BigDecimal.valueOf(1), 1);
 
-        this.mockMvc.perform(post("/api/users/loans")
-                        .with(csrf())
+        this.mockMvc.perform(post("/api/users/mine/loans")
                         .with(user(TestUsers.testAdmin()))
                         .content(asJsonString(loanRequest))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -63,26 +66,11 @@ class UserApiTests {
     }
 
     @Test
-    public void whenUserHasLoan_thenReturnBadRequest() throws Exception {
-        when(this.loanService.createLoan(eq(2L), any())).thenThrow(RuntimeException.class);
-        LoanRequest loanRequest = new LoanRequest(BigDecimal.valueOf(1), 1);
-
-        this.mockMvc.perform(post("/api/users/loans")
-                        .with(csrf())
-                        .with(user(TestUsers.testUserWithLoan()))
-                        .content(asJsonString(loanRequest))
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
     public void whenPostRequestLoan_thenReturnStatusCreatedAndLoan() throws Exception {
         when(this.loanService.createLoan(eq(1L), any())).thenReturn(mockedLoan());
         LoanRequest loanRequest = new LoanRequest(BigDecimal.valueOf(1), 1);
 
-        this.mockMvc.perform(post("/api/users/loans")
-                        .with(csrf())
+        this.mockMvc.perform(post("/api/users/mine/loans")
                         .with(user(TestUsers.testUser()))
                         .content(asJsonString(loanRequest))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -97,8 +85,7 @@ class UserApiTests {
     public void whenPostRequestLoanInvalid_thenReturnBadRequest() throws Exception {
         LoanRequest loanRequest = new LoanRequest(BigDecimal.valueOf(0), 0);
 
-        this.mockMvc.perform(post("/api/users/loans")
-                        .with(csrf())
+        this.mockMvc.perform(post("/api/users/mine/loans")
                         .with(user(TestUsers.testUser()))
                         .content(asJsonString(loanRequest))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -110,24 +97,26 @@ class UserApiTests {
 
     @Test
     public void whenGetSchedule_thenReturnLoanPayments() throws Exception {
-        when(this.loanService.getLoanByAccountId(1L)).thenReturn(mockedLoan());
+        CustomUserDetails user = TestUsers.testUser();
+        Loan loan = mockedLoan();
+        loan.setId(1L);
+        when(this.loanService.getLoanByAccountId(user.getAccount().getId(), loan.getId())).thenReturn(loan);
 
-        this.mockMvc.perform(get("/api/users/loans/schedule")
-                        .with(csrf())
-                        .with(user(TestUsers.testUser()))
+        this.mockMvc.perform(get("/api/users/mine/loans/1/schedule")
+                        .with(user(user))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)));
+                .andExpect(jsonPath("$._embedded.payments", hasSize(2)));
     }
 
     @Test
     public void whenGetScheduleUserHasNoLoan_thenReturnNotFound() throws Exception {
-        when(this.loanService.getLoanByAccountId(1L)).thenThrow(NotFoundException.class);
+        CustomUserDetails user = TestUsers.testUser();
+        when(this.loanService.getLoanByAccountId(user.getAccount().getId(), 1L)).thenThrow(NotFoundException.class);
 
-        this.mockMvc.perform(get("/api/users/loans/schedule")
-                        .with(csrf())
-                        .with(user(TestUsers.testUser()))
+        this.mockMvc.perform(get("/api/users/mine/loans/1/schedule")
+                        .with(user(user))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNotFound());
@@ -135,23 +124,30 @@ class UserApiTests {
 
     @Test
     public void whenPatchPayment_thenReturnOk() throws Exception {
+        CustomUserDetails user = TestUsers.testUser();
         Loan loan = mockedLoan();
-        loan.getPayments().get(0).setStatus(PaymentStatus.PAID);
-        when(this.loanService.getLoanByAccountId(1L)).thenReturn(loan);
+        loan.setId(1L);
+        loan.setAccount(user.getAccount());
+        Payment payment = loan.getPayments().get(0);
+        payment.setId(1L);
+        payment.setStatus(PaymentStatus.PAID);
 
-        this.mockMvc.perform(patch("/api/users/loans/payment")
-                        .with(csrf())
-                        .with(user(TestUsers.testUser()))
+        when(this.loanService.getLoan(1L)).thenReturn(loan);
+        when(this.paymentService.makePayment(loan.getId(), 1L)).thenReturn(payment);
+
+        this.mockMvc.perform(patch("/api/users/mine/loans/1/payments/1")
+                        .with(user(user))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isOk());
     }
 
     @Test
     public void whenPatchPaymentUserHasNoLoan_thenReturnNotFound() throws Exception {
-        when(this.loanService.getLoanByAccountId(1L)).thenThrow(NotFoundException.class);
+        when(this.loanService.getLoan(1L)).thenThrow(NotFoundException.class);
 
-        this.mockMvc.perform(patch("/api/users/loans/payment")
+        this.mockMvc.perform(patch("/api/users/mine/loans/1/payments/1")
                         .with(csrf())
                         .with(user(TestUsers.testUser()))
                         .contentType(MediaType.APPLICATION_JSON)
@@ -160,14 +156,33 @@ class UserApiTests {
     }
 
     @Test
-    public void whenPatchPaymentLoanAlreadyPaid_thenReturnBadRequest() throws Exception {
-        when(this.loanService.getLoanByAccountId(1L)).thenThrow(RuntimeException.class);
+    public void whenAdminDeletePayment_andNotFound_thenReturnNotFound() throws Exception {
+        when(this.loanService.getLoan(1L)).thenThrow(NotFoundException.class);
 
-        this.mockMvc.perform(patch("/api/users/loans/payment")
-                        .with(csrf())
-                        .with(user(TestUsers.testUser()))
+        this.mockMvc.perform(delete("/api/users/1/loans/1/payments/1")
+                        .with(user(TestUsers.testAdmin()))
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void whenAdminDeletePayment_thenReturnOk() throws Exception {
+        CustomUserDetails user = TestUsers.testUser();
+        Loan loan = mockedLoan();
+        loan.setId(1L);
+        loan.setAccount(user.getAccount());
+        Payment payment = loan.getPayments().get(0);
+        payment.setId(1L);
+        payment.setStatus(PaymentStatus.FORGIVEN);
+
+        when(this.loanService.getLoan(1L)).thenReturn(loan);
+        when(this.paymentService.forgivePayment(loan.getId(), 1L)).thenReturn(payment);
+
+        this.mockMvc.perform(delete("/api/users/1/loans/1/payments/1")
+                        .with(user(TestUsers.testAdmin()))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
     }
 }
